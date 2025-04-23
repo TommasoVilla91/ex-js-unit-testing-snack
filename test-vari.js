@@ -4,17 +4,20 @@ function getInitials(string){
     return firstLetters.join("");
 };
 
-function createSlug(string){
+function createSlug(string, array){
     if(string === "" || null) {
         throw new Error("Titolo assente o non valido!");
     };
 
-    const divideString = string.split(" ");
-    if(divideString.length > 1){
-        return divideString.toString().replace(",", "-");
-    } else {
-        return divideString[0].toLowerCase();
+    let slug = string.toLowerCase().replaceAll(" ", "-");
+    if(array){
+        for(let i = 0; i < array.length; i++){
+            if(array[i].slug === slug){
+                return slug + "-1";
+            };
+        };
     };
+    return slug;
 };
 
 function average(array){
@@ -35,6 +38,7 @@ function findPostById(array, id){
             throw new Error("L'array non è corretto")
         };
     });
+
     if(id > array.length){
         return null;
     } else if(typeof id !== "number"){
@@ -44,10 +48,28 @@ function findPostById(array, id){
     }
 };
 
+function addPost(array, newPost){
+    array.forEach(p => {
+        if(newPost.id === p.id){
+            throw new Error("Id già esistente")
+        } else if(newPost.slug === p.slug){
+            throw new Error("Slug già esistente")
+        };
+    });
+    array.push(newPost);
+};
+
+function removePost(array, id){
+    const indexPost = array.findIndex(p => p.id === id);
+    return array.splice(indexPost, 1);
+};
+
 module.exports = {
     getInitials,
     createSlug,
     average,
     isPalindrome,
     findPostById,
+    addPost,
+    removePost,
 }
