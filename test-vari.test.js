@@ -1,4 +1,4 @@
-const { getInitials, createSlug, average, isPalindrome } = require("./test-vari.js");
+const { getInitials, createSlug, average, isPalindrome, findPostById } = require("./test-vari.js");
 
 // Snack 1
 test("La funzione getInitials restituisce le iniziali di un nome completo", () => {
@@ -29,4 +29,47 @@ test("La funzione createSlug sostituisce gli spazi con -", () => {
 test("La funzione isPalindrome verifica se una stringa è un palindromo", () => {
     expect(isPalindrome("Anna")).toBeTruthy();
     expect(isPalindrome("Pollo")).toBeFalsy();
-})
+});
+
+
+// Snack 6
+test("La funzione createSlug lancia un errore se il titolo è vuoto o non valido", () => {
+    const invalidString = () => createSlug("");
+    expect(invalidString).toThrow();
+});
+
+const posts = [
+    {
+      id: 1,
+      title: "Il mio primo post sul blog",
+      slug: "il-mio-primo-post-sul-blog"
+    },
+    {
+      id: 2,
+      title: "Consigli utili per la programmazione JavaScript",
+      slug: "consigli-utili-programmazione-javascript"
+    },
+    {
+      id: 3,
+      title: "Esplorando le meraviglie dell'Italia",
+      slug: "esplorando-le-meraviglie-dell-italia"
+    },
+    {
+      id: 4,
+      title: "Ricette facili e veloci per la cena",
+      slug: "ricette-facili-e-veloci-per-la-cena"
+    }
+];
+
+// Snack 7
+test("La funzione findPostById restituisce il post corretto dato l'array di post e l'id", () => {
+    expect(findPostById(posts, 3))
+    .toEqual({
+        id: 3,
+        title: "Esplorando le meraviglie dell'Italia",
+        slug: "esplorando-le-meraviglie-dell-italia"
+    });
+});
+
+
+// 

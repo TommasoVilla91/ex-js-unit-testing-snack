@@ -5,12 +5,16 @@ function getInitials(string){
 };
 
 function createSlug(string){
+    if(string === "") {
+        throw new Error("Titolo assente o non valido!")
+    };
+
     const divideString = string.split(" ");
     if(divideString.length > 1){
         return divideString.toString().replace(",", "-");
     } else {
         return divideString[0].toLowerCase();
-    }
+    };
 };
 
 function average(array){
@@ -25,9 +29,14 @@ function isPalindrome(string){
     return reverseString === string.toLowerCase();
 };
 
+function findPostById(array, id){
+    return array.find(u => u.id === id);
+};
+
 module.exports = {
     getInitials,
     createSlug,
     average,
     isPalindrome,
+    findPostById,
 }
