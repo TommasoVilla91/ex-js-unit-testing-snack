@@ -5,8 +5,8 @@ function getInitials(string){
 };
 
 function createSlug(string){
-    if(string === "") {
-        throw new Error("Titolo assente o non valido!")
+    if(string === "" || null) {
+        throw new Error("Titolo assente o non valido!");
     };
 
     const divideString = string.split(" ");
@@ -30,7 +30,18 @@ function isPalindrome(string){
 };
 
 function findPostById(array, id){
-    return array.find(u => u.id === id);
+    array.forEach(p => {
+        if(p.id === undefined || p.title === undefined || p.slug === undefined){
+            throw new Error("L'array non è corretto")
+        };
+    });
+    if(id > array.length){
+        return null;
+    } else if(typeof id !== "number"){
+        throw new Error(`${id} is not valid`);
+    } else {
+        return array.find(u => u.id === id);
+    }
 };
 
 module.exports = {

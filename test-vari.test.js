@@ -35,7 +35,9 @@ test("La funzione isPalindrome verifica se una stringa è un palindromo", () => 
 // Snack 6
 test("La funzione createSlug lancia un errore se il titolo è vuoto o non valido", () => {
     const invalidString = () => createSlug("");
+    const nullInput = () => createSlug(null);
     expect(invalidString).toThrow();
+    expect(nullInput).toThrow();
 });
 
 const posts = [
@@ -69,6 +71,9 @@ test("La funzione findPostById restituisce il post corretto dato l'array di post
         title: "Esplorando le meraviglie dell'Italia",
         slug: "esplorando-le-meraviglie-dell-italia"
     });
+    expect(findPostById(posts, 5)).toBe(null);
+    expect(() => findPostById(posts, "mimmo").toThrow());
+    expect(() => findPostById(["Mauro", 77, "Enzo"], 2).toThrow());
 });
 
 
